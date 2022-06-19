@@ -33,7 +33,8 @@ app.get("/v1", (req, resp) => {
         const img = $(this).find("a > img").attr("data-src");
         thumbnails.push({
           name: name,
-          url: "http://localhost:6789/v1" + url.split("/wiki")[1],
+          url:
+            "https://web-scraping-demo.onrender.com/v1" + url.split("/wiki")[1],
           image: img,
         });
       });
@@ -49,8 +50,9 @@ app.get("/v1", (req, resp) => {
 });
 
 //GET A CHARACTER
-app.get("/v1/:character", (req, resp) => {  
-  const CHARACTER_URL = "https://kimetsu-no-yaiba.fandom.com/wiki/" + req.params.character;
+app.get("/v1/:character", (req, resp) => {
+  const CHARACTER_URL =
+    "https://kimetsu-no-yaiba.fandom.com/wiki/" + req.params.character;
   const titles = [];
   const details = [];
   const galleries = [];
@@ -95,15 +97,14 @@ app.get("/v1/:character", (req, resp) => {
             name: req.params.character.replace("_", " "),
             gallery: galleries,
             image: image,
-            ...characterObj,//... to bypass characterObj key in characters
+            ...characterObj, //... to bypass characterObj key in characters
           });
         }
       });
 
       resp.status(200).json(characters);
     });
-  } 
-  catch (error) {
+  } catch (error) {
     resp.status(500).json(error);
   }
 });
